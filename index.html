@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Альмира, с 8 Марта!</title>
+    <style>
+        body {
+            background-color: pink;
+            text-align: center;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 3em;
+            color: white;
+            margin-top: 50px;
+            font-family: Arial, sans-serif;
+        }
+        .image-container {
+            position: absolute;
+            bottom: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: slideUp 2s ease-out forwards;
+        }
+        @keyframes slideUp {
+            from { bottom: -200px; }
+            to { bottom: 50px; }
+        }
+        .fireworks {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Альмира, с 8 Марта!</h1>
+    <div class="image-container">
+        <img src="rosa.png" width="300">
+    </div>
+    
+    <canvas class="fireworks"></canvas>
+    
+    <script>
+        const canvas = document.querySelector(".fireworks");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        function randomColor() {
+            return `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+        }
+        
+        function drawFirework(x, y) {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    ctx.fillStyle = randomColor();
+                    ctx.beginPath();
+                    ctx.arc(x + Math.random() * 100 - 50, y + Math.random() * 100 - 50, 5, 0, Math.PI * 2);
+                    ctx.fill();
+                }, i * 50);
+            }
+        }
+        
+        setInterval(() => {
+            drawFirework(Math.random() * canvas.width, Math.random() * canvas.height / 2);
+        }, 1000);
+    </script>
+</body>
+</html>
